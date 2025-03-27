@@ -22,16 +22,12 @@ jobs:
             
           run:
             mkdir -p ~/.ssh/
-            echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-            
-            ssh-keyscan -p 23 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-        - name: Test SSH Connection
-          env:
-            SSH_USER: ${{ secrets.SSH_USER }}
-            SSH_HOST: ${{ secrets.SSH_HOST }}
-          run: ssh -p 23 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST echo "Connessione riuscita"
+            touch ~/.ssh/known_hosts
+            ssh-keyscan -t rsa ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+            ssh -p 23 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} echo "Connessione riuscita"
 
 
             
