@@ -1,0 +1,19 @@
+name: Odoo Backup
+
+on:
+  # Esecuzione manuale
+  workflow_dispatch:
+  # Esecuzione programmata (ogni giorno alle 2:00 AM)
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Test connection
+        run: echo "Setup iniziale completato con successo!"
