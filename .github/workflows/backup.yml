@@ -14,13 +14,17 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v2
         
-        - name: Preparazione alla connessione
-          run: |
-            # Generazione automatica della entry known_hosts
-            echo "Generazione automatica del file known_hosts per ${{ secrets.SERVER_IP }}"
-            ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        - name: Connesione al server....
+          uses: appleboy/ssh-action@master
+          with:
+              host: ${{ secrets.SERVER_IP }} 
+              username: ${{ secrets.SERVER_USER }}
+              key: ${{ secrets.SSH_PRIVATE_KEY }} 
+              script: |
+                echo "Connessione riuscita"
 
-            # Verifica configurazione
-            ls -la ~/.ssh
-            
-            echo "Connessione al server ${{ secrets.SERVER_IP }} come utente ${{ secrets.SSH_USER }}"
+                echo "Chiusura connessione"
+                exit
+                echo "Connessione chiusa"
+                echo "Fine del processo"
+                exit
