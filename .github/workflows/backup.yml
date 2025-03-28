@@ -25,12 +25,10 @@ jobs:
 
         - name: Genera know_hosts
           run: |
-            echo "Configurazione manuale di known_hosts"
-            ssh-keyscan -p 23 -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
-           
+             ssh-keyscan -p 23 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+            
         - name: Test connessione SSH
           env:
             SSH_PWD: ${{ secrets.SSH_PWD }}
           run: |
-             sshpass -p "$SSH_PASSWORD" ssh - p 23 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
-             "echo 'Connessione riuscita!'"
+             
