@@ -52,6 +52,7 @@ jobs:
       - name: Debug
         run: |
           echo "Container PostgreSQL trovato: ${{ env.container_name }}"   
+          EOF
 
            
           
