@@ -29,3 +29,7 @@ jobs:
       - name: Test connessione SSH
         run: |
           ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connessione riuscita!'"
+
+          - name: Crea file timestamp sul server
+        run: |
+           ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo $(date '+%Y-%m-%d %H:%M:%S') > ~/backup_timestamp.txt"  
