@@ -24,7 +24,7 @@ jobs:
 
       - name: Genera known_hosts
         run: |
-          ssh-keyscan -p 23 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -t ed25519 -p 23 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           
       - name: Test connessione SSH
         run: |
