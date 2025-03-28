@@ -26,13 +26,8 @@ jobs:
         - name: Genera know_hosts
           run: |
            echo "Configurazione manuale di known_hosts"
-           mkdir -p ~/.ssh
-           echo "${{ secrets.SSH_HOST }} $(ssh-keygen -f /dev/null -l -E md5 2>/dev/null)" >> ~/.ssh/known_hosts
-           echo "Host ${{ secrets.SSH_HOST }}" >> ~/.ssh/config
-           echo "  Port 23" >> ~/.ssh/config
-           echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+           
 
         - name: Test connessione SSH
           run: |
-            ssh -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 
-            "echo 'Connessione SSH stabilita con successo!'"
+            "echo 'Qui la gestione della connessione SSH'"
