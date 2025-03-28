@@ -35,21 +35,15 @@ jobs:
           ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 
           echo $(date '+%Y-%m-%d %H:%M:%S\n') >> ~/backup_timestamp.txt  
 
-      - name: Esegui backup Odoo
+      - name: Individuazione del container di PostgreSQL
         run: |
           ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-            mkdir -p ~/odoo_backups
-            TIMESTAMP=\$(date '+%Y-%m-%d_%H-%M-%S')
-            BACKUP_FILE=odoo_backup_\$TIMESTAMP.tar.gz
-
-
-            # Esegui il backup utilizzando docker exec
-            echo \"Avvio backup del database...\"
-            docker exec postgres_container pg_dump -U odoo -d odoo | gzip > ~/odoo_backups/\${BACKUP_FILENAME}
-            
-            # Verifica la dimensione del file di backup
-            BACKUP_SIZE=\$(du -h ~/odoo_backups/\${BACKUP_FILENAME} | cut -f1)
-            echo \"Backup completato: \${BACKUP_FILENAME} (Dimensione: \${BACKUP_SIZE})\"
-            
-
+          POSTGRES_CONTAINER=\$(docker ps --format '{{.Names}}' | grep -i postgres | head -1)
+          if [ -z \"\$POSTGRES_CONTAINER\" ]; then
+            echo \"Nessun container PostgreSQL trovato!\"
+          exit 1
+          fi
+          echo \"Container PostgreSQL trovato: \$POSTGRES_CONTAINER\"
+          echo \"POSTGRES_CONTAINER=\$POSTGRES_CONTAINER\" >> \$GITHUB_ENV
+           
           
