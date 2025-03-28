@@ -46,7 +46,7 @@ jobs:
            exit 1
            fi
            
-           echo "POSTGRES_CONTAINER=$POSTGRES_CONTAINER" >> $GITHUB_OUTPUT
+           echo "::set-output name=POSTGRES_CONTAINER::$POSTGRES_CONTAINER"
         
       - name: Debug
         run: |
