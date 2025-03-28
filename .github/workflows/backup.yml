@@ -29,7 +29,8 @@ jobs:
             ssh-keyscan -p 23 -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
            
         - name: Test connessione SSH
+          env:
+            SSH_PWD: ${{ secrets.SSH_PWD }}
           run: |
-            echo "Qui la gestione della connessione SSH"
-            ssh -p 23  devops@80.180.204.1 
-            echo "Connessione riuscita!"
+             sshpass -p "$SSH_PASSWORD" ssh - p23 -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 
+             "echo 'Connessione riuscita!'"
