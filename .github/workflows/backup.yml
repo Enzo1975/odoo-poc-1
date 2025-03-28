@@ -27,5 +27,7 @@ jobs:
 
         - name: Genera know_hosts
           run: |
-            echo "Generazione automatica del file known_hosts per ${{ inputs.server_ip }}"
+            ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+            echo "Host ${{ secrets.SSH_HOST }}"
+            
             
