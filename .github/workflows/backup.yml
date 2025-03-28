@@ -45,7 +45,12 @@ jobs:
              echo "Nessun container PostgreSQL trovato!"
            exit 1
            fi
-           echo \"Container PostgreSQL trovato: \$POSTGRES_CONTAINER\"
-           echo \"POSTGRES_CONTAINER=\$POSTGRES_CONTAINER\" >> \$GITHUB_ENV
+           
+           echo "POSTGRES_CONTAINER=$POSTGRES_CONTAINER" >> $GITHUB_OUTPUT
+        
+      - name: Debug
+        run: |
+          echo "Container PostgreSQL trovato: ${{ steps.find_postgres_container.outputs.POSTGRES_CONTAINER }}"   
+
            
           
