@@ -38,10 +38,11 @@ jobs:
       - name: Individuazione del container di PostgreSQL
         id: find_postgres_container
         run: |
-          ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 
+          ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}  << 'EOF'
            POSTGRES_CONTAINER=\$(docker ps --format '{{.Names}}' | grep -i postgres | head -1)
+           
            if [ -z \"\$POSTGRES_CONTAINER\" ]; then
-             echo \"Nessun container PostgreSQL trovato!\"
+             echo "Nessun container PostgreSQL trovato!"
            exit 1
            fi
            echo \"Container PostgreSQL trovato: \$POSTGRES_CONTAINER\"
