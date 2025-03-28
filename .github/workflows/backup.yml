@@ -47,6 +47,7 @@ jobs:
            fi
       
            echo "container_name=$POSTGRES_CONTAINER" >> $GITHUB_ENV
+           EOF
           
       - name: Debug
         run: |
