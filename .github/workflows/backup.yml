@@ -33,10 +33,4 @@ jobs:
            echo "  StrictHostKeyChecking no" >> ~/.ssh/config
 
         - name: Test connessione SSH
-          run: ssh -o StrictHostKeyChecking=no -T ${{ secrets.SSH_HOST }} || exit 1
-          env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            SSH_HOST: ${{ secrets.SSH_HOST }}
-
-        - name: Debug
-          run: cat ~/.ssh/known_hosts
+          run: ssh -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connessione SSH stabilita con successo!'"
