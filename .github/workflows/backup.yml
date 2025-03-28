@@ -46,9 +46,8 @@ jobs:
            exit 1
            fi
       
-           echo "container_name=$POSTGRES_CONTAINER" >> $GITHUB_STATE
-           echo "container_name=$POSTGRES_CONTAINER" >> $GITHUB_OUTPUT 
-        
+           echo "container_name=$POSTGRES_CONTAINER" >> $GITHUB_ENV
+          
       - name: Debug
         run: |
           echo "Container PostgreSQL trovato: ${{ env.container_name }}"   
