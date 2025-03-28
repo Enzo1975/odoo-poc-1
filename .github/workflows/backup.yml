@@ -26,9 +26,8 @@ jobs:
         - name: Genera know_hosts
           run: |
             echo "Configurazione manuale di known_hosts"
-            ssh-keyscan -H server_ip >> ~/.ssh/known_hosts
+            ssh-keyscan -p 23 -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
            
-
         - name: Test connessione SSH
           run: |
             "echo 'Qui la gestione della connessione SSH'"
