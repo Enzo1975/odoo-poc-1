@@ -31,5 +31,5 @@ jobs:
         - name: Test connessione SSH
           run: |
             echo "Qui la gestione della connessione SSH"
-            ssh -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} -p 23 
+            ssh -p 23  ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 
             echo "Connessione riuscita!"
