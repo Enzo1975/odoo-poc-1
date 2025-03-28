@@ -42,4 +42,14 @@ jobs:
             TIMESTAMP=\$(date '+%Y-%m-%d_%H-%M-%S')
             BACKUP_FILE=odoo_backup_\$TIMESTAMP.tar.gz
 
+
+            # Esegui il backup utilizzando docker exec
+            echo \"Avvio backup del database...\"
+            docker exec postgres_container pg_dump -U odoo -d odoo | gzip > ~/odoo_backups/\${BACKUP_FILENAME}
+            
+            # Verifica la dimensione del file di backup
+            BACKUP_SIZE=\$(du -h ~/odoo_backups/\${BACKUP_FILENAME} | cut -f1)
+            echo \"Backup completato: \${BACKUP_FILENAME} (Dimensione: \${BACKUP_SIZE})\"
+            
+
           
