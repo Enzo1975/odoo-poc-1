@@ -31,5 +31,5 @@ jobs:
         - name: Test connessione SSH
           run: |
             echo "Qui la gestione della connessione SSH"
-            ssh -p 23  ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} 
+            ssh -p 23  devops@80.180.204.1 
             echo "Connessione riuscita!"
