@@ -54,13 +54,15 @@ jobs:
       - name: Esegui backup del database Odoo
         shell: bash
         run: |
-            # Utilizza il nome del container come parametro nel comando SSH
-            ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            
-            # Nome del container PostgreSQL
+           
+            # Estrai il nome del container PostgreSQL dall'output del passo precedente
             CONTAINER='${{ steps.find_postgres.outputs.container_name }}'
             echo \"Utilizzo container: \$CONTAINER\"
-              
+           
+            # Utilizza il nome del container come parametro nel comando SSH
+            ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
+            
+            
             # Crea directory per i backup
             mkdir -p ~/odoo_backups
 
