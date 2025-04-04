@@ -62,6 +62,6 @@ jobs:
         # Esegui il backup del database Odoo     
       - name: Copia lo script di backup sul server remoto
         run: |
-          scp scripts -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/backup_odoo.sh
+          scp scripts -P 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/backup_odoo.sh
 
       
