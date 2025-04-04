@@ -30,6 +30,18 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connessione riuscita!'"
 
+      - name: Copia script informativo sul server
+        run: |
+          scp -P 23 scripts/odoo_backup_info.sh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/odoo_backup_info.sh
+
+      - name: Rendi eseguibile lo script
+        run: |
+          ssh -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'chmod +x ~/odoo_backup_info.sh'
+
+      - name: Esegui lo script informativo
+        run: |
+          ssh -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '~/odoo_backup_info.sh'    
+
      
      
          
