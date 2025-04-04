@@ -45,7 +45,7 @@ jobs:
              echo "Nessun container PostgreSQL trovato!"
            exit 1
            fi
-                 
+
       - name: Debug
         run: |
           echo "Container PostgreSQL trovato: ${{ env.container_name }}"   
@@ -54,7 +54,9 @@ jobs:
       - name: Esegui backup del database Odoo
         run: |
             # Utilizza il nome del container come parametro nel comando SSH
-             ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            
+            # Nome del container PostgreSQL
             CONTAINER='${{ steps.find_postgres.outputs.container_name }}'
             echo \"Utilizzo container: \$CONTAINER\"
               
@@ -63,7 +65,7 @@ jobs:
               
             # Prepara il nome del file
             TIMESTAMP=\$(date '+%Y-%m-%d_%H-%M-%S')
-              BACKUP_FILE=\"odoo_backup_\${TIMESTAMP}.sql.gz\"    
+            BACKUP_FILE=\"odoo_backup_\${TIMESTAMP}.sql.gz\"    
 
            
           
