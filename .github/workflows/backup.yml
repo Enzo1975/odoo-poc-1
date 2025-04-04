@@ -52,6 +52,7 @@ jobs:
           
 
       - name: Esegui backup del database Odoo
+        shell: bash
         run: |
             # Utilizza il nome del container come parametro nel comando SSH
             ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
