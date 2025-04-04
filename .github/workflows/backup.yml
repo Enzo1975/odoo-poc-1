@@ -59,17 +59,9 @@ jobs:
             CONTAINER='${{ steps.find_postgres.outputs.container_name }}'
             echo \"Utilizzo container: \$CONTAINER\"
            
-            # Utilizza il nome del container come parametro nel comando SSH
-            ssh -o StrictHostKeyChecking=no -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "bash -c '\
-            
-            # Crea directory per i backup
-            mkdir -p ~/odoo_backups  && \
+        # Esegui il backup del database Odoo     
+      - name: Copia lo script di backup sul server remoto
+        run: |
+          scp scripts -p 23 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/backup_odoo.sh
 
-            # Crea un backup del database Odoo
-            # Prepara il nome del file
-            TIMESTAMP=\$(date +%Y%m%d_%H%M%S) && \
-            BACKUP_FILE=\"odoo_backup_\$TIMESTAMP.sql.gz" && \
-           
-            touch ~/odoo_backups/$BACKUP_FILE && \
-            echo \ "File creato: ~/odoo_backups/$BACKUP_FILE\" \
-            '"
+      
