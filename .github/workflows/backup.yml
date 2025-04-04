@@ -47,12 +47,12 @@ jobs:
            fi
       
            echo "container_name=$POSTGRES_CONTAINER" >> $GITHUB_ENV
-           EOF
+           
           
       - name: Debug
         run: |
           echo "Container PostgreSQL trovato: ${{ env.container_name }}"   
-          EOF
+          
 
       - name: Esegui backup del database Odoo
         run: |
